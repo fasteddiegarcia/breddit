@@ -33,6 +33,33 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    /**
+     * Get the comments for the user.
+     *
+     */
+    public function comments() 
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    /**
+     * Get the subbreddits of the user.
+     *
+     */
+    public function subbreddits() 
+    {
+        return $this->hasMany('App\Subbreddit');
+    }
+
+    /**
+     * Get the subbreddits of the user.
+     *
+     */
+    public function subscribedSubbreddits() 
+    {
+        return $this->belongsToMany('App\Subbreddit');
+    }
+
 
 
 }
