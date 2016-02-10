@@ -35,4 +35,4 @@ class User extends Authenticatable
 
 
 
-}4subbreddit
+}
