@@ -57,7 +57,7 @@ class User extends Authenticatable
      */
     public function subscribedSubbreddits() 
     {
-        return $this->belongsToMany('App\Subbreddit');
+        return $this->belongsToMany('App\Subbreddit')->withTimestamps();
     }
 
 
