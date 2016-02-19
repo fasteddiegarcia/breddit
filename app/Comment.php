@@ -11,7 +11,7 @@ class Comment extends Model
      * Get the user that owns the comment.
      *
      */
-    public function user() 
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
@@ -20,7 +20,7 @@ class Comment extends Model
      * Get the post that owns the comment.
      *
      */
-    public function user() 
+    public function post()
     {
         return $this->belongsTo('App\Post');
     }
@@ -29,7 +29,7 @@ class Comment extends Model
      * Get the parent comment that owns the comment.
      *
      */
-    public function parentComment() 
+    public function parentComment()
     {
         return $this->belongsTo('App\Comment');
     }
@@ -38,7 +38,7 @@ class Comment extends Model
      * Get the child comment that belongs to the parent comment.
      *
      */
-    public function childComment() 
+    public function childComment()
     {
         return $this->belongsTo('App\Comment');
     }
