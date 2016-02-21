@@ -17,16 +17,8 @@ class CommentsController extends Controller
     public function index()
     {
         //
+        return \App\Comment::all();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,6 +30,13 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
+        $comment = new \App\Comment;
+        $comment->user_id = Auth::user()->id;
+        $comment->name = $request->name;
+        $comment->description = $request->description;
+        $comment->save();
+
+        return $comment;
     }
 
     /**
@@ -49,17 +48,8 @@ class CommentsController extends Controller
     public function show($id)
     {
         //
-    }
+        return \App\Comment::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -72,6 +62,13 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $comment = \App\Comment::find($id);
+        $comment->user_id = $request->user_id;
+        $comment->name = $request->name;
+        $comment->description = $request->description;
+        $comment->save();
+
+        return $comment;
     }
 
     /**
@@ -83,5 +80,8 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         //
+        $comment = \App\Comment::find($id);
+        $comment->delete();
+        return $comment;
     }
 }

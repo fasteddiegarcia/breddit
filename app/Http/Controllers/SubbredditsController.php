@@ -31,7 +31,7 @@ class SubbredditsController extends Controller
     {
         //
         $subbreddit = new \App\Subbreddit;
-        $subbreddit->user_id = $request->user_id;
+        $subbreddit->user_id = Auth::user()->id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();

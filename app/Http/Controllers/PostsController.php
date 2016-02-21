@@ -17,16 +17,7 @@ class PostsController extends Controller
     public function index()
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return \App\Post::all();
     }
 
     /**
@@ -38,6 +29,13 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
+        $post = new \App\Post;
+        $post->user_id = Auth::user()->id;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -49,17 +47,7 @@ class PostsController extends Controller
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return \App\Post::find($id);
     }
 
     /**
@@ -72,6 +60,13 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $post = \App\Post::find($id);
+        $post->user_id = $request->user_id;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -83,5 +78,8 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = \App\Post::find($id);
+        $post->delete();
+        return $post;
     }
 }

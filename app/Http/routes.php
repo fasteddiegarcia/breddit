@@ -11,12 +11,7 @@
 |
 */
 
-Route::resource('posts','PostsController');
-Route::resource('subbreddits','SubbredditsController', [
-    'except' => ['edit', 'create']
-]);
-Route::resource('users','UsersController');
-Route::resource('comments','CommentsController');
+
 
 
 
@@ -32,11 +27,29 @@ Route::resource('comments','CommentsController');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    Route::get('/', function() {
+        return view('welcome');
+    });
+
+    Route::resource('subbreddits','SubbredditsController');
+
 });
 
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+// Route::group(['middleware' => 'web'], function () {
+//     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
-});
+//     Route::get('/home', 'HomeController@index');
+
+//     Route::resource('subbreddits','SubbredditsController', [
+//         'except' => ['create', 'edit']
+//     ]);
+// });
+
+
+
+
+
+
+
+
