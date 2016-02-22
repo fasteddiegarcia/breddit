@@ -29,7 +29,12 @@ class UsersController extends Controller
     public function show($id)
     {
         //
-        return \App\User::find($id);
+        return \App\Post::with([
+            'subbreddits',
+            'posts',
+            'subscribedSubbreddits',
+            'comments'
+        ])->($id);
 
     }
 

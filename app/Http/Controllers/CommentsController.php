@@ -48,7 +48,12 @@ class CommentsController extends Controller
     public function show($id)
     {
         //
-        return \App\Comment::find($id);
+        return \App\Post::with([
+            'user',
+            'post',
+            'parentComment',
+            'childComment'
+        ])->($id);
 
     }
 
