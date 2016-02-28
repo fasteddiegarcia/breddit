@@ -34,7 +34,7 @@ class UsersController extends Controller
             'posts',
             'subscribedSubbreddits',
             'comments'
-        ])->($id);
+        ])->find($id);
 
     }
 

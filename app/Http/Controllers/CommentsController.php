@@ -19,7 +19,7 @@ class CommentsController extends Controller
         //
         return \App\Comment::all();
     }
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +54,7 @@ class CommentsController extends Controller
             'post',
             'parentComment',
             'childComment'
-        ])->($id);
+        ])->find($id);
 
     }
 
