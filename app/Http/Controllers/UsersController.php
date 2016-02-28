@@ -47,13 +47,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $user = \App\User::find($id);
-        $user->user_id = Auth::user()->id;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        if ($user->user_id = \Auth::user()->id) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->save();
+        } else {
+            return response ("Unauthorized", 403);
+        }
 
         return $user;
     }
@@ -66,9 +68,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
         $user = \App\User::find($id);
-        $user->delete();
+        if ($user->user_id = \Auth::user()->id) {
+            $user->delete();
+        } else {
+            return response ("Unauthorized", 403);
+        }
+
         return $user;
     }
 }

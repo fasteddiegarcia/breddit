@@ -13,8 +13,6 @@
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,29 +25,32 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/', function () {
+            return view('welcome');
+        });
 
-    Route::get('/', function() {
-        return view('welcome');
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::resource('subbreddits', 'SubbredditsController', ['except' => ['create', 'edit']]);
+
+    Route::resource('posts', 'PostsController', ['except' => ['create', 'edit']]);
+
+    Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
+
+    Route::resource('comments', 'CommentsController', ['except' => ['create', 'edit']]);
+
+    Route::resource('subbreddits', 'SubbredditsController', [
+        'only' => ['index', 'show']
+    ]);
+
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::resource('subbreddits', 'SubbredditsController', [
+            'only' => ['store','update','destroy']
+        ]);
     });
-
-    Route::resource('subbreddits','SubbredditsController');
-
 });
-
-// Route::group(['middleware' => 'web'], function () {
-//     Route::auth();
-
-//     Route::get('/home', 'HomeController@index');
-
-//     Route::resource('subbreddits','SubbredditsController', [
-//         'except' => ['create', 'edit']
-//     ]);
-// });
-
-
-
-
-
-
 
 

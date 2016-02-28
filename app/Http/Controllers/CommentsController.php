@@ -31,9 +31,10 @@ class CommentsController extends Controller
     {
         //
         $comment = new \App\Comment;
-        $comment->user_id = Auth::user()->id;
-        $comment->name = $request->name;
-        $comment->description = $request->description;
+        $comment->user_id = \Auth::user()->id;
+        $comment->comment_id = $request->comment_id;
+        $comment->post_id = $request->post_id;
+        $comment->comment_content = $request->comment_content;
         $comment->save();
 
         return $comment;
@@ -66,12 +67,14 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $comment = \App\Comment::find($id);
-        $comment->user_id = $request->user_id;
-        $comment->name = $request->name;
-        $comment->description = $request->description;
-        $comment->save();
+        if ($comment->user_id = \Auth::user()->id) {
+            $comment->post_id = $request->post_id;
+            $comment->comment_id = $request->comment_id;
+            $comment->comment_content = $request->comment_content;
+            $comment->save();
+        } else {
+            return response ("Unauthorized", 403);
+        }
 
         return $comment;
     }
@@ -84,9 +87,14 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
         $comment = \App\Comment::find($id);
-        $comment->delete();
+        if ($comment->user_id = \Auth::user()->id) {
+            $comment->delete();
+            $comment->save();
+        } else {
+            return response ("Unauthorized", 403);
+        }
+
         return $comment;
     }
 }

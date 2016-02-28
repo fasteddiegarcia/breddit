@@ -31,7 +31,7 @@ class SubbredditsController extends Controller
     {
         //
         $subbreddit = new \App\Subbreddit;
-        $subbreddit->user_id = Auth::user()->id;
+        $subbreddit->user_id = \Auth::user()->id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
@@ -61,12 +61,14 @@ class SubbredditsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $subbreddit = \App\Subbreddit::find($id);
-        $subbreddit->user_id = $request->user_id;
-        $subbreddit->name = $request->name;
-        $subbreddit->description = $request->description;
-        $subbreddit->save();
+        if ($subbreddit->user_id = \Auth::user()->id) {
+            $subbreddit->name = $request->name;
+            $subbreddit->description = $request->description;
+            $subbreddit->save();
+        } else {
+            return response ("Unauthorized", 403);
+        }
 
         return $subbreddit;
     }
@@ -79,9 +81,13 @@ class SubbredditsController extends Controller
      */
     public function destroy($id)
     {
-        //
         $subbreddit = \App\Subbreddit::find($id);
-        $subbreddit->delete();
+        if ($subbreddit->user_id = \Auth::user()->id) {
+            $subbreddit->delete();
+        } else {
+            return response ("Unauthorized", 403);
+        }
+
         return $subbreddit;
 
     }
