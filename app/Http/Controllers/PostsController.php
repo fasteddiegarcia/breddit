@@ -17,7 +17,7 @@ class PostsController extends Controller
     public function index()
     {
         //
-        return \App\Post::all();
+        return \App\Post::with('subbreddit')->orderBy('id', 'desc')->get();
     }
 
     /**
@@ -32,7 +32,7 @@ class PostsController extends Controller
         $post = new \App\Post;
         $post->user_id = $request->user_id;
         $post->title = $request->title;
-        $post->content = $request->post_content;
+        $post->post_content = $request->post_content;
         $post->subbreddit_id = $request->subbreddit_id;
         $post->url = $request->url;
         $post->save();
@@ -72,7 +72,7 @@ class PostsController extends Controller
         $post = \App\Post::find($id);
         if ($post->user_id = \Auth::user()->id) {
             $post->title = $request->title;
-            $post->content = $request->content;
+            $post->post_content = $request->post_content;
             $post->url = $request->url;
             $post->save();
         } else {
