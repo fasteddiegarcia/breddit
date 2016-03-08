@@ -21,19 +21,19 @@ var CommentModel = Backbone.Model.extend({
     idAttribute: 'id'
 });
 
-var CommentCollection = Backbone.Collection.extend({
-    url: '/api/comments/',
-    model: CommentModel
-});
-
-var PostCollection = Backbone.Collection.extend({
+var PostsCollection = Backbone.Collection.extend({
     url: '/api/posts/',
     model: PostModel
 });
 
-var SubbredditCollection = Backbone.Collection.extend({
+var SubbredditsCollection = Backbone.Collection.extend({
     url: '/api/subbreddits/',
     model: SubbredditModel
+});
+
+var CommentsCollection = Backbone.Collection.extend({
+    url: '/api/comments/',
+    model: CommentModel
 });
 
 var PostItemView = Backbone.View.extend({
