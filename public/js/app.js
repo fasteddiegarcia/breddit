@@ -85,10 +85,3 @@ posts.fetch({
         console.log('view inserted');
     }
 });
-
-
-
-
-
-
-
