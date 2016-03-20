@@ -61,6 +61,7 @@ var PostsListView = Backbone.View.extend({
     }
 });
 
+/*
 var post = new PostModel({id: 1});
 
 post.fetch({
@@ -71,6 +72,21 @@ post.fetch({
         $('#content').html(postItemView.el);
     }
 });
+*/
+
+var posts = new PostsCollection();
+
+posts.fetch({
+    success: function() {
+        var PostsListView = new PostsListView({collection: posts});
+        PostsListView.render();
+
+        $('#content').html(PostsListView.el);
+        console.log('view inserted');
+    }
+});
+
+
 
 
 

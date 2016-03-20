@@ -10,9 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 if(env('APP_DEBUG')) {
@@ -33,35 +31,25 @@ if(env('APP_DEBUG')) {
 */
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+   Route::auth();
 
-    // this is where our app lives
-    Route::get('/home', 'HomeController@index');
-
-    Route::group(['prefix' => 'api'], function () {
-        Route::resource('subbreddits', 'SubbredditsController', [
-            'only' => ['index', 'show']
-        ]);
-
-        Route::resource('posts', 'PostsController', [
-            'only' => ['index', 'show']
-        ]);
-
-        Route::resource('comments', 'CommentsController', [
-            'only' => ['index', 'show']
-        ]);
-
-        Route::group(['middleware' => 'auth'], function () {
-            Route::resource('subbreddits', 'SubbredditsController', [
-                'only' => ['store', 'update', 'destroy']
-            ]);
-            Route::resource('posts', 'PostsController', [
-                'only' => ['store', 'update', 'destroy']
-            ]);
-            Route::resource('comments', 'CommentsController', [
-                'only' => ['store', 'update', 'destroy']
-            ]);
-        });
+   Route::get('/', function () {
+       return view('welcome');
     });
-});
 
+   // This is where our app lives.
+ Route::get('/home', 'HomeController@index');
+
+ Route::group(['prefix' => 'api'], function() {
+
+     Route::resource('posts', 'PostsController', ['only' => ['index', 'show']]);
+     Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
+
+     Route::group(['middleware' => 'auth'], function() {
+
+         Route::resource('posts', 'PostsController', [
+            'only' => ['store', 'update', 'destroy']
+         ]);
+     });
+ });
+});
